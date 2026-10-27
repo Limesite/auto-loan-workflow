@@ -2,10 +2,8 @@ export type LoanType = 'new-purchase' | 'used-purchase' | 'refinance';
 export type VehicleType = 'car-sedan' | 'suv-crossover' | 'truck' | 'van-minivan' | 'other';
 export type EmploymentStatus = 'employed' | 'self-employed' | 'retired' | 'military' | 'other';
 export type FinancingTimeline = 'right-away' | 'within-30-days' | '1-3-months' | 'just-researching';
-export type MileageRange = 'under-15k' | '15k-50k' | '50k-100k' | 'over-100k';
 export type PurchaseLocation = 'dealership' | 'private-seller' | 'not-sure';
 export type TradeIn = 'no' | 'yes-owe' | 'yes-paid-off';
-export type CurrentRate = 'below-5' | '5-7' | '7-10' | '10-15' | 'above-15';
 export type RefinanceGoal = 'lower-payment' | 'lower-rate' | 'shorten-term' | 'cash-out';
 export type RepossessionBankruptcy = 'no' | 'repossession' | 'bankruptcy' | 'both';
 
@@ -18,7 +16,7 @@ export interface FunnelData {
   // Step 2: Car Details
   vehicleType: VehicleType | null;
   modelYear: number | null;
-  mileageRange: MileageRange | null;
+  mileageRange: number | null;
   purchaseLocation: PurchaseLocation | null;
 
   // Step 3a: Loan Details — Purchase
@@ -29,7 +27,7 @@ export interface FunnelData {
 
   // Step 3b: Loan Details — Refinance
   remainingBalance: number;
-  currentRate: CurrentRate | null;
+  currentRate: number | null;
   monthsRemaining: number;
   refinanceGoal: RefinanceGoal | null;
 

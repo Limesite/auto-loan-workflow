@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import type { FunnelData, VehicleType, MileageRange, PurchaseLocation } from '../../../types/funnel';
+import type { FunnelData, VehicleType, PurchaseLocation } from '../../../types/funnel';
 
 interface StepTwoProps {
   data: FunnelData;
@@ -14,13 +14,6 @@ const VEHICLE_TYPES: { value: VehicleType; label: string; img?: string }[] = [
   { value: 'truck',        label: 'Truck',             img: '/icons/truck.png'         },
   { value: 'van-minivan',  label: 'Van or minivan',    img: '/icons/van-minivan.png'   },
   { value: 'other',        label: 'Other'                                              },
-];
-
-const MILEAGE_RANGES: { value: MileageRange; label: string }[] = [
-  { value: 'under-15k',  label: 'Under 15,000'     },
-  { value: '15k-50k',    label: '15,000–50,000'    },
-  { value: '50k-100k',   label: '50,000–100,000'   },
-  { value: 'over-100k',  label: 'Over 100,000'     },
 ];
 
 const PURCHASE_LOCATIONS: { value: PurchaseLocation; label: string }[] = [
@@ -120,41 +113,32 @@ export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
         </div>
       </div>
 
-      {/* Q3: Mileage (used + refinance only) */}
+      {/* Q3: Mileage slider (used + refinance only) */}
       {showMileage && (
         <div className="border-t-2 border-gray-100 pt-6 pb-6">
           <div className="flex items-baseline gap-2 mb-3">
             <QLabel n={qNum++} />
             <h2 className="text-base font-black text-gray-900">About how many miles are on it?</h2>
           </div>
-          <div className="grid grid-cols-2 gap-2">
-            {MILEAGE_RANGES.map(mr => {
-              const selected = mileageRange === mr.value;
-              return (
-                <motion.button
-                  key={mr.value}
-                  onClick={() => onChange({ mileageRange: mr.value })}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  className={`relative flex items-center justify-center px-3 py-3 rounded-xl border-2 transition-all ${
-                    selected
-                      ? 'border-[#EA2523] bg-[#EA2523]/5'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
-                >
-                  {selected && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute top-2 right-2 w-4 h-4 bg-[#EA2523] rounded-full flex items-center justify-center"
-                    >
-                      <Check size={9} className="text-white" strokeWidth={3} />
-                    </motion.div>
-                  )}
-                  <span className="text-sm font-bold text-gray-900">{mr.label}</span>
-                </motion.button>
-              );
-            })}
+          <div className="bg-white border border-gray-200 rounded-xl px-4 py-3">
+            <div className="flex items-baseline justify-between mb-3">
+              <span className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#757575' }}>Mileage</span>
+              {mileageRange !== null
+                ? <span className="text-xl font-black text-[#1E3569]">{mileageRange.toLocaleString()} mi</span>
+                : <span className="text-sm text-gray-400">Slide to set</span>
+              }
+            </div>
+            <input
+              type="range" min={0} max={250000} step={1000}
+              value={mileageRange ?? 0}
+              onChange={e => onChange({ mileageRange: Number(e.target.value) })}
+              className="slider-input w-full"
+              style={{ background: `linear-gradient(to right, #1E3569 ${((mileageRange ?? 0) / 250000) * 100}%, #E5E7EB ${((mileageRange ?? 0) / 250000) * 100}%)` }}
+            />
+            <div className="flex justify-between mt-2">
+              <span className="text-xs" style={{ color: '#757575' }}>0 mi</span>
+              <span className="text-xs" style={{ color: '#757575' }}>250,000 mi</span>
+            </div>
           </div>
         </div>
       )}

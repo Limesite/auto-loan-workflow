@@ -98,7 +98,7 @@ function AutoRateCard({ rate, index }: { rate: RateData; index: number }) {
             { label: 'APR',            value: `${rate.apr.toFixed(2)}%` },
             { label: 'Loan Amount',    value: fmtCurrency(rate.loanAmount) },
             { label: 'Loan Term',      value: `${rate.termMonths} months` },
-            { label: 'Total Interest', value: fmtCurrency(rate.totalInterest) },
+            { label: 'Total Est. Payment', value: fmtCurrency(rate.monthlyPayment * rate.termMonths) },
           ].map(item => (
             <div key={item.label} className="bg-gray-50 rounded-lg px-3 py-2">
               <p className="text-xs" style={{ color: '#757575' }}>{item.label}</p>

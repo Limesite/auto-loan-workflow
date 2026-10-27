@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import type { FunnelData, TradeIn, CurrentRate, RefinanceGoal } from '../../../types/funnel';
+import type { FunnelData, TradeIn, RefinanceGoal } from '../../../types/funnel';
 
 interface StepThreeProps {
   data: FunnelData;
@@ -8,10 +8,10 @@ interface StepThreeProps {
   onNext: () => void;
 }
 
-const TRADE_IN_OPTIONS: { value: TradeIn; label: string; icon: string }[] = [
-  { value: 'no',           label: 'No',                      icon: '✗'  },
-  { value: 'yes-owe',      label: 'Yes, and I owe money on it', icon: '💳' },
-  { value: 'yes-paid-off', label: 'Yes, and it\'s paid off',   icon: '✅' },
+const TRADE_IN_OPTIONS: { value: TradeIn; label: string }[] = [
+  { value: 'no',           label: 'No'                        },
+  { value: 'yes-owe',      label: 'Yes, and I owe money on it' },
+  { value: 'yes-paid-off', label: "Yes, and it's paid off"    },
 ];
 
 const LOAN_TERMS: Array<{ value: 36 | 48 | 60 | 72 | 84; label: string }> = [
@@ -22,19 +22,11 @@ const LOAN_TERMS: Array<{ value: 36 | 48 | 60 | 72 | 84; label: string }> = [
   { value: 84, label: '84 months' },
 ];
 
-const CURRENT_RATES: { value: CurrentRate; label: string }[] = [
-  { value: 'below-5',  label: 'Below 5%'  },
-  { value: '5-7',      label: '5%–7%'     },
-  { value: '7-10',     label: '7%–10%'    },
-  { value: '10-15',    label: '10%–15%'   },
-  { value: 'above-15', label: 'Above 15%' },
-];
-
-const REFINANCE_GOALS: { value: RefinanceGoal; label: string; icon: string }[] = [
-  { value: 'lower-payment', label: 'Lower my payment', icon: '📉' },
-  { value: 'lower-rate',    label: 'Lower my rate',    icon: '💰' },
-  { value: 'shorten-term',  label: 'Shorten my term',  icon: '⚡' },
-  { value: 'cash-out',      label: 'Get cash out',     icon: '💵' },
+const REFINANCE_GOALS: { value: RefinanceGoal; label: string }[] = [
+  { value: 'lower-payment', label: 'Lower my payment' },
+  { value: 'lower-rate',    label: 'Lower my rate'    },
+  { value: 'shorten-term',  label: 'Shorten my term'  },
+  { value: 'cash-out',      label: 'Get cash out'     },
 ];
 
 function fmtCurrency(n: number) {
@@ -125,9 +117,9 @@ function PurchaseFlow({ data, onChange, onNext }: StepThreeProps) {
           <h2 className="text-base font-black text-gray-900">What is the vehicle's price?</h2>
         </div>
         <PriceSlider
-          label="Vehicle Price" value={vehiclePrice} min={5000} max={100000} step={1000}
+          label="Vehicle Price" value={vehiclePrice} min={5000} max={125000} step={1000}
           onChange={v => onChange({ vehiclePrice: v })}
-          fmtLeft="$5K" fmtRight="$100K"
+          fmtLeft="$5K" fmtRight="$125K"
         />
       </div>
 
@@ -138,54 +130,16 @@ function PurchaseFlow({ data, onChange, onNext }: StepThreeProps) {
           <h2 className="text-base font-black text-gray-900">How much will you put down?</h2>
         </div>
         <PriceSlider
-          label="Down Payment" value={downPayment} min={0} max={30000} step={500}
+          label="Down Payment" value={downPayment} min={0} max={100000} step={500}
           onChange={v => onChange({ downPayment: v })}
-          fmtLeft="$0" fmtRight="$30K"
+          fmtLeft="$0" fmtRight="$100K"
         />
       </div>
 
-      {/* Q3: Trade-in */}
+      {/* Q3: Loan term */}
       <div className="border-t-2 border-gray-100 pt-6 pb-6">
         <div className="flex items-baseline gap-2 mb-3">
           <QLabel n={3} />
-          <h2 className="text-base font-black text-gray-900">Do you have a trade-in?</h2>
-        </div>
-        <div className="flex flex-col gap-2">
-          {TRADE_IN_OPTIONS.map(opt => {
-            const selected = tradeIn === opt.value;
-            return (
-              <motion.button
-                key={opt.value}
-                onClick={() => onChange({ tradeIn: opt.value })}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.97 }}
-                className={`relative flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all ${
-                  selected
-                    ? 'border-[#EA2523] bg-[#EA2523]/5'
-                    : 'border-gray-200 bg-white hover:border-gray-300'
-                }`}
-              >
-                {selected && (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute top-3 right-3 w-4 h-4 bg-[#EA2523] rounded-full flex items-center justify-center"
-                  >
-                    <Check size={9} className="text-white" strokeWidth={3} />
-                  </motion.div>
-                )}
-                <span className="text-base">{opt.icon}</span>
-                <span className="text-sm font-bold text-gray-900">{opt.label}</span>
-              </motion.button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Q4: Loan term */}
-      <div className="border-t-2 border-gray-100 pt-6 pb-3">
-        <div className="flex items-baseline gap-2 mb-3">
-          <QLabel n={4} />
           <h2 className="text-base font-black text-gray-900">What loan term would you like?</h2>
         </div>
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
@@ -213,6 +167,43 @@ function PurchaseFlow({ data, onChange, onNext }: StepThreeProps) {
                   </motion.div>
                 )}
                 <span className="text-xs font-bold text-gray-900">{t.label}</span>
+              </motion.button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Q4: Trade-in */}
+      <div className="border-t-2 border-gray-100 pt-6 pb-3">
+        <div className="flex items-baseline gap-2 mb-3">
+          <QLabel n={4} />
+          <h2 className="text-base font-black text-gray-900">Do you have a trade-in?</h2>
+        </div>
+        <div className="flex flex-col gap-2">
+          {TRADE_IN_OPTIONS.map(opt => {
+            const selected = tradeIn === opt.value;
+            return (
+              <motion.button
+                key={opt.value}
+                onClick={() => onChange({ tradeIn: opt.value })}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.97 }}
+                className={`relative flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all ${
+                  selected
+                    ? 'border-[#EA2523] bg-[#EA2523]/5'
+                    : 'border-gray-200 bg-white hover:border-gray-300'
+                }`}
+              >
+                {selected && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute top-3 right-3 w-4 h-4 bg-[#EA2523] rounded-full flex items-center justify-center"
+                  >
+                    <Check size={9} className="text-white" strokeWidth={3} />
+                  </motion.div>
+                )}
+                <span className="text-sm font-bold text-gray-900">{opt.label}</span>
               </motion.button>
             );
           })}
@@ -261,40 +252,31 @@ function RefinanceFlow({ data, onChange, onNext }: StepThreeProps) {
         />
       </div>
 
-      {/* Q2: Current interest rate */}
+      {/* Q2: Current interest rate — slider */}
       <div className="border-t-2 border-gray-100 pt-6 pb-6">
         <div className="flex items-baseline gap-2 mb-3">
           <QLabel n={2} />
           <h2 className="text-base font-black text-gray-900">What is your current interest rate?</h2>
         </div>
-        <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
-          {CURRENT_RATES.map(r => {
-            const selected = currentRate === r.value;
-            return (
-              <motion.button
-                key={r.value}
-                onClick={() => onChange({ currentRate: r.value })}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className={`relative flex items-center justify-center py-3 px-2 rounded-xl border-2 transition-all ${
-                  selected
-                    ? 'border-[#EA2523] bg-[#EA2523]/5'
-                    : 'border-gray-200 bg-white hover:border-gray-300'
-                }`}
-              >
-                {selected && (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute top-1.5 right-1.5 w-3.5 h-3.5 bg-[#EA2523] rounded-full flex items-center justify-center"
-                  >
-                    <Check size={8} className="text-white" strokeWidth={3} />
-                  </motion.div>
-                )}
-                <span className="text-xs font-bold text-gray-900 text-center leading-tight">{r.label}</span>
-              </motion.button>
-            );
-          })}
+        <div className="bg-white border border-gray-200 rounded-xl px-4 py-3">
+          <div className="flex items-baseline justify-between mb-3">
+            <span className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#757575' }}>Current Rate</span>
+            {currentRate !== null
+              ? <span className="text-xl font-black text-[#1E3569]">{currentRate.toFixed(2)}%</span>
+              : <span className="text-sm text-gray-400">Slide to set</span>
+            }
+          </div>
+          <input
+            type="range" min={0} max={25} step={0.25}
+            value={currentRate ?? 0}
+            onChange={e => onChange({ currentRate: Number(e.target.value) })}
+            className="slider-input w-full"
+            style={{ background: `linear-gradient(to right, #1E3569 ${((currentRate ?? 0) / 25) * 100}%, #E5E7EB ${((currentRate ?? 0) / 25) * 100}%)` }}
+          />
+          <div className="flex justify-between mt-2">
+            <span className="text-xs" style={{ color: '#757575' }}>0%</span>
+            <span className="text-xs" style={{ color: '#757575' }}>25%</span>
+          </div>
         </div>
       </div>
 
@@ -337,7 +319,6 @@ function RefinanceFlow({ data, onChange, onNext }: StepThreeProps) {
                     <Check size={9} className="text-white" strokeWidth={3} />
                   </motion.div>
                 )}
-                <span className="text-xl">{g.icon}</span>
                 <span className="text-sm font-bold text-gray-900 text-left">{g.label}</span>
               </motion.button>
             );

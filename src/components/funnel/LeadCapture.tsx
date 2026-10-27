@@ -271,15 +271,6 @@ export function LeadCapture({ data, onChange, onSubmit }: LeadCaptureProps) {
           </div>
         </div>
 
-        {/* Reviews */}
-        <div className="pt-4 mt-auto border-t border-gray-100">
-          <p className="text-xs text-center mb-1.5" style={{ color: '#757575' }}>Reviews of Texas United Mortgage</p>
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-sm font-bold text-gray-700">5.0</span>
-            <div className="flex gap-0.5">{[...Array(5)].map((_, i) => (<svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>))}</div>
-            <span className="text-xs" style={{ color: '#757575' }}>150+ reviews</span>
-          </div>
-        </div>
       </div>
     </div>
   );

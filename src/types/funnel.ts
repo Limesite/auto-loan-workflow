@@ -12,6 +12,8 @@ export interface FunnelData {
   loanType: LoanType | null;
   zipCode: string;
   financingTimeline: FinancingTimeline | null;
+  vehicleMake: string;
+  vehicleModel: string;
 
   // Step 2: Car Details
   vehicleType: VehicleType | null;

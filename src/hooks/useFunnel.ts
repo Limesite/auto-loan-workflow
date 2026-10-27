@@ -6,6 +6,8 @@ const DEFAULT_DATA: FunnelData = {
   loanType: null,
   zipCode: '',
   financingTimeline: null,
+  vehicleMake: '',
+  vehicleModel: '',
   vehicleType: null,
   modelYear: null,
   mileageRange: null,

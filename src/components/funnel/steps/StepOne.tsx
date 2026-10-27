@@ -10,9 +10,9 @@ interface StepOneProps {
 }
 
 const LOAN_TYPES: { value: LoanType; label: string; img: string; desc: string }[] = [
-  { value: 'new-purchase',  label: 'New Car Purchase',              img: '/icons/new-purchase.svg',  desc: 'Buy a brand-new vehicle' },
-  { value: 'used-purchase', label: 'Used Car Purchase',             img: '/icons/used-purchase.svg', desc: 'Buy a pre-owned vehicle' },
-  { value: 'refinance',     label: 'Refinance My Current Auto Loan', img: '/icons/refinance.svg',    desc: 'Lower your rate or payment' },
+  { value: 'new-purchase',  label: 'New Car Purchase',              img: '/icons/new-purchase.png',  desc: 'Buy a brand-new vehicle' },
+  { value: 'used-purchase', label: 'Used Car Purchase',             img: '/icons/used-purchase.png', desc: 'Buy a pre-owned vehicle' },
+  { value: 'refinance',     label: 'Refinance My Current Auto Loan', img: '/icons/refinance.png',    desc: 'Lower your rate or payment' },
 ];
 
 const TIMELINES: { value: FinancingTimeline; label: string }[] = [

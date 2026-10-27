@@ -8,19 +8,19 @@ interface StepFourProps {
   onNext: () => void;
 }
 
-const EMPLOYMENT_STATUSES: { value: EmploymentStatus; label: string; img?: string; icon?: string }[] = [
+const EMPLOYMENT_STATUSES: { value: EmploymentStatus; label: string; img?: string }[] = [
   { value: 'employed',      label: 'Employed',       img: '/employed.png'      },
   { value: 'self-employed', label: 'Self-Employed',  img: '/self-employed.png' },
   { value: 'retired',       label: 'Retired',        img: '/retired.png'       },
   { value: 'military',      label: 'Military',       img: '/military.svg'      },
-  { value: 'other',         label: 'Other',          icon: '•••'               },
+  { value: 'other',         label: 'Other'                                     },
 ];
 
-const REPO_OPTIONS: { value: RepossessionBankruptcy; label: string; icon: string }[] = [
-  { value: 'no',           label: 'No',           icon: '✓'  },
-  { value: 'repossession', label: 'Repossession', icon: '🚗' },
-  { value: 'bankruptcy',   label: 'Bankruptcy',   icon: '📋' },
-  { value: 'both',         label: 'Both',         icon: '⚠️' },
+const REPO_OPTIONS: { value: RepossessionBankruptcy; label: string }[] = [
+  { value: 'no',           label: 'No'           },
+  { value: 'repossession', label: 'Repossession' },
+  { value: 'bankruptcy',   label: 'Bankruptcy'   },
+  { value: 'both',         label: 'Both'         },
 ];
 
 const BANDS = [
@@ -141,10 +141,7 @@ export function StepFour({ data, onChange, onNext }: StepFourProps) {
                     <Check size={9} className="text-white" strokeWidth={3} />
                   </motion.div>
                 )}
-                {es.img
-                  ? <img src={es.img} alt={es.label} className="w-8 h-8 object-contain flex-shrink-0" />
-                  : <span className="text-sm flex-shrink-0">{es.icon}</span>
-                }
+                {es.img && <img src={es.img} alt={es.label} className="w-8 h-8 object-contain flex-shrink-0" />}
                 <p className="text-sm font-bold text-gray-900 text-left">{es.label}</p>
               </motion.button>
             );
@@ -206,7 +203,6 @@ export function StepFour({ data, onChange, onNext }: StepFourProps) {
                     <Check size={9} className="text-white" strokeWidth={3} />
                   </motion.div>
                 )}
-                <span className="text-base">{opt.icon}</span>
                 <span className="text-sm font-bold text-gray-900">{opt.label}</span>
               </motion.button>
             );

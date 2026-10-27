@@ -23,10 +23,10 @@ const MILEAGE_RANGES: { value: MileageRange; label: string }[] = [
   { value: 'over-100k',  label: 'Over 100,000'     },
 ];
 
-const PURCHASE_LOCATIONS: { value: PurchaseLocation; label: string; icon: string }[] = [
-  { value: 'dealership',    label: 'Dealership',     icon: '🏢' },
-  { value: 'private-seller', label: 'Private seller', icon: '🤝' },
-  { value: 'not-sure',      label: 'Not sure yet',   icon: '🤔' },
+const PURCHASE_LOCATIONS: { value: PurchaseLocation; label: string }[] = [
+  { value: 'dealership',    label: 'Dealership'    },
+  { value: 'private-seller', label: 'Private seller' },
+  { value: 'not-sure',      label: 'Not sure yet'  },
 ];
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -190,7 +190,6 @@ export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
                       <Check size={9} className="text-white" strokeWidth={3} />
                     </motion.div>
                   )}
-                  <span className="text-xl">{pl.icon}</span>
                   <span className="text-sm font-bold text-gray-900">{pl.label}</span>
                 </motion.button>
               );

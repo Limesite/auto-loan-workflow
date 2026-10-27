@@ -267,7 +267,7 @@ function LowCreditCard({ data }: { data: FunnelData }) {
 
 export function RatesDisplay({ data }: RatesDisplayProps) {
   const { rates, loanAmount } = calculateRates(data);
-  const isLowCredit = data.creditScore < 620;
+  const isLowCredit = data.creditScore < 600;
 
   return (
     <div className="px-4 py-5 bg-gray-50">

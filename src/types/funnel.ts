@@ -8,7 +8,6 @@ export type TradeIn = 'no' | 'yes-owe' | 'yes-paid-off';
 export type CurrentRate = 'below-5' | '5-7' | '7-10' | '10-15' | 'above-15';
 export type RefinanceGoal = 'lower-payment' | 'lower-rate' | 'shorten-term' | 'cash-out';
 export type RepossessionBankruptcy = 'no' | 'repossession' | 'bankruptcy' | 'both';
-export type ContactPreference = 'phone' | 'text' | 'email';
 
 export interface FunnelData {
   // Step 1: Getting Started
@@ -45,7 +44,6 @@ export interface FunnelData {
     name: string;
     email: string;
     phone: string;
-    contactPreference: ContactPreference | null;
   };
 }
 
@@ -74,8 +72,8 @@ export const STEP_ORDER: FunnelStep[] = [
   'step2',
   'step3',
   'step4',
-  'lead-capture',
   'loading',
+  'lead-capture',
   'rates',
 ];
 

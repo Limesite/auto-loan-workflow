@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Shadow -->
+  <ellipse cx="50" cy="85" rx="38" ry="3.5" fill="#E0E0E0"/>
+  <!-- Rear wheel -->
+  <circle cx="22" cy="74" r="12" fill="#3D4852" stroke="#2D2D2D" stroke-width="2"/>
+  <circle cx="22" cy="74" r="6.5" fill="#8A9BA8"/>
+  <circle cx="22" cy="74" r="2.5" fill="#C8D4DC"/>
+  <line x1="22" y1="67.5" x2="22" y2="80.5" stroke="#8A9BA8" stroke-width="1.2"/>
+  <line x1="15.5" y1="74" x2="28.5" y2="74" stroke="#8A9BA8" stroke-width="1.2"/>
+  <!-- Front wheel -->
+  <circle cx="76" cy="74" r="12" fill="#3D4852" stroke="#2D2D2D" stroke-width="2"/>
+  <circle cx="76" cy="74" r="6.5" fill="#8A9BA8"/>
+  <circle cx="76" cy="74" r="2.5" fill="#C8D4DC"/>
+  <line x1="76" y1="67.5" x2="76" y2="80.5" stroke="#8A9BA8" stroke-width="1.2"/>
+  <line x1="69.5" y1="74" x2="82.5" y2="74" stroke="#8A9BA8" stroke-width="1.2"/>
+  <!-- Truck bed (rear) -->
+  <rect x="8" y="55" width="44" height="18" rx="3" fill="#D0E4F7" stroke="#2D2D2D" stroke-width="2.5"/>
+  <!-- Bed floor -->
+  <rect x="9" y="67" width="42" height="5" rx="1" fill="#B8D4ED" stroke="#2D2D2D" stroke-width="1.5"/>
+  <!-- Bed cross bars -->
+  <line x1="22" y1="55" x2="22" y2="67" stroke="#2D2D2D" stroke-width="1.2"/>
+  <line x1="36" y1="55" x2="36" y2="67" stroke="#2D2D2D" stroke-width="1.2"/>
+  <!-- Cab body -->
+  <rect x="50" y="52" width="42" height="21" rx="4" fill="#D0E4F7" stroke="#2D2D2D" stroke-width="2.5"/>
+  <!-- Cab roof -->
+  <path d="M54 52 L58 28 Q62 22 76 22 Q88 22 91 28 L92 52 Z" fill="#B8D4ED" stroke="#2D2D2D" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Cab window -->
+  <path d="M62 24 L91 28 L91 51 L62 51 Z" fill="#6BA8CC" stroke="#2D2D2D" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Cab door line -->
+  <line x1="74" y1="51" x2="74" y2="73" stroke="#2D2D2D" stroke-width="1.5"/>
+  <!-- Door handle -->
+  <rect x="77" y="61" width="8" height="2.2" rx="1.1" fill="#8ABFDE" stroke="#2D2D2D" stroke-width="0.8"/>
+  <!-- Headlight -->
+  <rect x="85" y="56" width="8" height="6" rx="3" fill="#FDD87D" stroke="#2D2D2D" stroke-width="1.5"/>
+  <!-- Taillight -->
+  <rect x="8" y="57" width="5" height="5" rx="1.5" fill="#F08A85" stroke="#2D2D2D" stroke-width="1.5"/>
+  <!-- Truck cab/bed join -->
+  <line x1="51" y1="52" x2="51" y2="73" stroke="#2D2D2D" stroke-width="2"/>
+</svg>

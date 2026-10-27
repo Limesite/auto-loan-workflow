@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Shield background -->
+  <path d="M50 8 L82 20 L82 52 Q82 72 50 88 Q18 72 18 52 L18 20 Z" fill="#1E3A5F" stroke="#2D2D2D" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Shield inner border -->
+  <path d="M50 14 L76 24 L76 52 Q76 68 50 82 Q24 68 24 52 L24 24 Z" fill="none" stroke="#C8A951" stroke-width="2"/>
+  <!-- 5-pointed star -->
+  <polygon points="50,26 53.5,37 65,37 55.5,44 59,55 50,48 41,55 44.5,44 35,37 46.5,37" fill="#C8A951" stroke="#2D2D2D" stroke-width="1"/>
+  <!-- Stripes below star -->
+  <rect x="36" y="57" width="28" height="3" rx="1.5" fill="#C8A951"/>
+  <rect x="38" y="62" width="24" height="3" rx="1.5" fill="#C8A951"/>
+  <rect x="40" y="67" width="20" height="3" rx="1.5" fill="#C8A951"/>
+</svg>

@@ -12,7 +12,7 @@ const EMPLOYMENT_STATUSES: { value: EmploymentStatus; label: string; img?: strin
   { value: 'employed',      label: 'Employed',       img: '/employed.png'      },
   { value: 'self-employed', label: 'Self-Employed',  img: '/self-employed.png' },
   { value: 'retired',       label: 'Retired',        img: '/retired.png'       },
-  { value: 'military',      label: 'Military',       icon: '🎖️'              },
+  { value: 'military',      label: 'Military',       img: '/military.svg'      },
   { value: 'other',         label: 'Other',          icon: '•••'               },
 ];
 

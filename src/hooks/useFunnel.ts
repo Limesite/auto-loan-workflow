@@ -22,7 +22,7 @@ const DEFAULT_DATA: FunnelData = {
   employmentStatus: null,
   annualIncome: 75000,
   repossessionBankruptcy: null,
-  lead: { name: '', email: '', phone: '', contactPreference: null },
+  lead: { name: '', email: '', phone: '' },
 };
 
 export function useFunnel() {

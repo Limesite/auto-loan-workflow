@@ -9,10 +9,10 @@ interface StepOneProps {
   onNext: () => void;
 }
 
-const LOAN_TYPES: { value: LoanType; label: string; icon: string; desc: string }[] = [
-  { value: 'new-purchase',  label: 'New Car Purchase',              icon: '🚗', desc: 'Buy a brand-new vehicle' },
-  { value: 'used-purchase', label: 'Used Car Purchase',             icon: '🚙', desc: 'Buy a pre-owned vehicle' },
-  { value: 'refinance',     label: 'Refinance My Current Auto Loan', icon: '🔄', desc: 'Lower your rate or payment' },
+const LOAN_TYPES: { value: LoanType; label: string; img: string; desc: string }[] = [
+  { value: 'new-purchase',  label: 'New Car Purchase',              img: '/icons/new-purchase.svg',  desc: 'Buy a brand-new vehicle' },
+  { value: 'used-purchase', label: 'Used Car Purchase',             img: '/icons/used-purchase.svg', desc: 'Buy a pre-owned vehicle' },
+  { value: 'refinance',     label: 'Refinance My Current Auto Loan', img: '/icons/refinance.svg',    desc: 'Lower your rate or payment' },
 ];
 
 const TIMELINES: { value: FinancingTimeline; label: string }[] = [
@@ -101,7 +101,7 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
                     <Check size={9} className="text-white" strokeWidth={3} />
                   </motion.div>
                 )}
-                <span className="text-2xl flex-shrink-0">{lt.icon}</span>
+                <img src={lt.img} alt={lt.label} className="w-12 h-12 object-contain flex-shrink-0" />
                 <div className="text-left">
                   <p className="text-sm font-bold text-gray-900">{lt.label}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{lt.desc}</p>

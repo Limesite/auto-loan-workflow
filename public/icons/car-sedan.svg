@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Shadow -->
+  <ellipse cx="50" cy="84" rx="34" ry="3.5" fill="#E0E0E0"/>
+  <!-- Rear wheel -->
+  <circle cx="26" cy="73" r="12" fill="#3D4852" stroke="#2D2D2D" stroke-width="2"/>
+  <circle cx="26" cy="73" r="6.5" fill="#8A9BA8"/>
+  <circle cx="26" cy="73" r="2.5" fill="#C8D4DC"/>
+  <line x1="26" y1="66.5" x2="26" y2="79.5" stroke="#8A9BA8" stroke-width="1.2"/>
+  <line x1="19.5" y1="73" x2="32.5" y2="73" stroke="#8A9BA8" stroke-width="1.2"/>
+  <!-- Front wheel -->
+  <circle cx="74" cy="73" r="12" fill="#3D4852" stroke="#2D2D2D" stroke-width="2"/>
+  <circle cx="74" cy="73" r="6.5" fill="#8A9BA8"/>
+  <circle cx="74" cy="73" r="2.5" fill="#C8D4DC"/>
+  <line x1="74" y1="66.5" x2="74" y2="79.5" stroke="#8A9BA8" stroke-width="1.2"/>
+  <line x1="67.5" y1="73" x2="80.5" y2="73" stroke="#8A9BA8" stroke-width="1.2"/>
+  <!-- Body -->
+  <rect x="9" y="55" width="82" height="17" rx="4" fill="#D0E4F7" stroke="#2D2D2D" stroke-width="2.5"/>
+  <!-- Cabin -->
+  <path d="M30 55 L37 28 Q42 23 50 23 Q58 23 63 28 L70 55 Z" fill="#B8D4ED" stroke="#2D2D2D" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Front window -->
+  <path d="M56 24 L63 28 L67 54 L56 54 Z" fill="#6BA8CC" stroke="#2D2D2D" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Rear window -->
+  <path d="M44 24 L37 28 L33 54 L44 54 Z" fill="#6BA8CC" stroke="#2D2D2D" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Roof divider -->
+  <line x1="50" y1="23" x2="50" y2="55" stroke="#2D2D2D" stroke-width="1.2"/>
+  <!-- Door divider -->
+  <line x1="50" y1="55" x2="50" y2="72" stroke="#2D2D2D" stroke-width="1.5"/>
+  <!-- Door handle front -->
+  <rect x="54" y="62" width="8" height="2.2" rx="1.1" fill="#8ABFDE" stroke="#2D2D2D" stroke-width="0.8"/>
+  <!-- Door handle rear -->
+  <rect x="38" y="62" width="8" height="2.2" rx="1.1" fill="#8ABFDE" stroke="#2D2D2D" stroke-width="0.8"/>
+  <!-- Headlight -->
+  <rect x="85" y="57" width="8" height="6" rx="3" fill="#FDD87D" stroke="#2D2D2D" stroke-width="1.5"/>
+  <!-- Taillight -->
+  <rect x="7" y="57" width="6" height="6" rx="2" fill="#F08A85" stroke="#2D2D2D" stroke-width="1.5"/>
+</svg>

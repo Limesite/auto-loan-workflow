@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Lock, ArrowRight } from 'lucide-react';
-import type { FunnelData, ContactPreference } from '../../types/funnel';
+import type { FunnelData } from '../../types/funnel';
 
 interface LeadCaptureProps {
   data: FunnelData;
@@ -30,12 +30,6 @@ const FAKE_ROWS = [
   { product: 'Auto Loan · 84 months', rate: '8.24%', apr: '8.34%', payment: '$338/mo' },
 ];
 
-const CONTACT_OPTIONS: { value: ContactPreference; label: string; icon: string }[] = [
-  { value: 'phone', label: 'Phone',  icon: '📞' },
-  { value: 'text',  label: 'Text',   icon: '💬' },
-  { value: 'email', label: 'Email',  icon: '✉️' },
-];
-
 const inputCls = (hasError?: boolean) =>
   `w-full px-3 py-2.5 border-2 rounded-xl text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none transition-all ${
     hasError ? 'border-red-400 focus:border-red-500' : 'border-gray-200 focus:border-[#233B86]'
@@ -56,7 +50,6 @@ export function LeadCapture({ data, onChange, onSubmit }: LeadCaptureProps) {
 
   const email = data.lead.email;
   const phone = data.lead.phone;
-  const contactPreference = data.lead.contactPreference;
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isRefinance = data.loanType === 'refinance';
 
@@ -69,10 +62,6 @@ export function LeadCapture({ data, onChange, onSubmit }: LeadCaptureProps) {
   const handleDetailsContinue = () => {
     if (!firstName.trim() || !lastName.trim() || !phone.trim()) {
       setDetailsError('Please fill in all fields.');
-      return;
-    }
-    if (!contactPreference) {
-      setDetailsError('Please select a contact preference.');
       return;
     }
     if (!consent1 || !consent2) {
@@ -237,25 +226,6 @@ export function LeadCapture({ data, onChange, onSubmit }: LeadCaptureProps) {
                         <input type="text" placeholder="Last name" value={lastName} onChange={e => { setLastName(e.target.value); setDetailsError(''); }} className={inputCls()} />
                       </div>
                       <input type="tel" placeholder="Phone number" value={phone} onChange={e => { onChange({ lead: { ...data.lead, phone: e.target.value } }); setDetailsError(''); }} className={inputCls()} />
-                      <div>
-                        <p className="text-xs font-semibold text-gray-600 mb-1.5">Preferred contact method</p>
-                        <div className="flex gap-2">
-                          {CONTACT_OPTIONS.map(opt => (
-                            <button
-                              key={opt.value}
-                              onClick={() => { onChange({ lead: { ...data.lead, contactPreference: opt.value } }); setDetailsError(''); }}
-                              className={`flex-1 flex flex-col items-center gap-1 py-2 rounded-xl border-2 text-xs font-bold transition-all ${
-                                contactPreference === opt.value
-                                  ? 'border-[#EA2523] bg-[#EA2523]/5 text-[#EA2523]'
-                                  : 'border-gray-200 text-gray-600 hover:border-gray-300'
-                              }`}
-                            >
-                              <span>{opt.icon}</span>
-                              <span>{opt.label}</span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
                     </div>
                     <div className="space-y-2.5 mb-3">
                       <label className="flex items-start gap-2 cursor-pointer">

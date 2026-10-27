@@ -8,12 +8,12 @@ interface StepTwoProps {
   onNext: () => void;
 }
 
-const VEHICLE_TYPES: { value: VehicleType; label: string; icon: string }[] = [
-  { value: 'car-sedan',    label: 'Car or sedan',     icon: '🚗' },
-  { value: 'suv-crossover', label: 'SUV or crossover', icon: '🚙' },
-  { value: 'truck',        label: 'Truck',             icon: '🛻' },
-  { value: 'van-minivan',  label: 'Van or minivan',    icon: '🚐' },
-  { value: 'other',        label: 'Other',             icon: '🚘' },
+const VEHICLE_TYPES: { value: VehicleType; label: string; img: string }[] = [
+  { value: 'car-sedan',    label: 'Car or sedan',     img: '/icons/car-sedan.svg'     },
+  { value: 'suv-crossover', label: 'SUV or crossover', img: '/icons/suv-crossover.svg' },
+  { value: 'truck',        label: 'Truck',             img: '/icons/truck.svg'         },
+  { value: 'van-minivan',  label: 'Van or minivan',    img: '/icons/van-minivan.svg'   },
+  { value: 'other',        label: 'Other',             img: '/icons/other-vehicle.svg' },
 ];
 
 const MILEAGE_RANGES: { value: MileageRange; label: string }[] = [
@@ -87,7 +87,7 @@ export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
                     <Check size={9} className="text-white" strokeWidth={3} />
                   </motion.div>
                 )}
-                <span className="text-2xl flex-shrink-0">{vt.icon}</span>
+                <img src={vt.img} alt={vt.label} className="w-10 h-10 object-contain flex-shrink-0" />
                 <span className="text-sm font-bold text-gray-800 text-left">{vt.label}</span>
               </motion.button>
             );

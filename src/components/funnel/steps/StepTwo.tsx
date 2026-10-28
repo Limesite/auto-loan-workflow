@@ -22,9 +22,6 @@ const PURCHASE_LOCATIONS: { value: PurchaseLocation; label: string }[] = [
   { value: 'not-sure',      label: 'Not sure yet'  },
 ];
 
-const CURRENT_YEAR = new Date().getFullYear();
-const MODEL_YEARS = Array.from({ length: CURRENT_YEAR - 1989 }, (_, i) => CURRENT_YEAR + 1 - i);
-
 function QLabel({ n }: { n: number }) {
   return (
     <span className="text-[10px] font-black tracking-widest shrink-0" style={{ color: '#757575' }}>
@@ -34,14 +31,13 @@ function QLabel({ n }: { n: number }) {
 }
 
 export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
-  const { vehicleType, modelYear, mileageRange, purchaseLocation, loanType } = data;
+  const { vehicleType, mileageRange, purchaseLocation, loanType } = data;
 
-  const showMileage   = loanType === 'used-purchase' || loanType === 'refinance';
-  const showPurchaseLoc = loanType === 'new-purchase' || loanType === 'used-purchase';
+  const showMileage     = loanType === 'used-purchase' || loanType === 'refinance';
+  const showPurchaseLoc = loanType === 'new-purchase'  || loanType === 'used-purchase';
 
   const canContinue =
     vehicleType !== null &&
-    modelYear !== null &&
     (!showMileage || mileageRange !== null) &&
     (!showPurchaseLoc || purchaseLocation !== null);
 
@@ -88,32 +84,7 @@ export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
         </div>
       </div>
 
-      {/* Q2: Model year */}
-      <div className="border-t-2 border-gray-100 pt-6 pb-6">
-        <div className="flex items-baseline gap-2 mb-3">
-          <QLabel n={qNum++} />
-          <h2 className="text-base font-black text-gray-900">What is the vehicle's model year?</h2>
-        </div>
-        <div className="relative">
-          <select
-            value={modelYear ?? ''}
-            onChange={e => onChange({ modelYear: Number(e.target.value) || null })}
-            className="w-full px-3 py-2.5 border-2 border-gray-200 rounded-xl text-sm font-medium text-gray-800 focus:outline-none focus:border-[#233B86] transition-all appearance-none bg-white cursor-pointer"
-          >
-            <option value="">Select a year</option>
-            {MODEL_YEARS.map(y => (
-              <option key={y} value={y}>{y}</option>
-            ))}
-          </select>
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth={2}>
-              <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      {/* Q3: Mileage slider (used + refinance only) */}
+      {/* Q2: Mileage slider (used + refinance only) */}
       {showMileage && (
         <div className="border-t-2 border-gray-100 pt-6 pb-6">
           <div className="flex items-baseline gap-2 mb-3">

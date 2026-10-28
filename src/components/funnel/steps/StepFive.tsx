@@ -43,7 +43,7 @@ export function StepFive({ data, onChange, onNext }: StepFiveProps) {
           <span className="text-[10px] font-black tracking-widest shrink-0" style={{ color: '#757575' }}>Q1</span>
           <h2 className="text-base font-black text-gray-900">What is your ZIP code?</h2>
         </div>
-        <p className="text-sm text-gray-500 mb-4">We use this to find lenders and rates available in your area.</p>
+        <p className="text-sm text-gray-500 mb-4">We use this to better match your loan options</p>
         <div className="flex gap-2">
           <input
             type="text"

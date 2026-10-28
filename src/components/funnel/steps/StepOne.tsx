@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Check, MapPin } from 'lucide-react';
+import { Check } from 'lucide-react';
 import type { FunnelData, LoanType, FinancingTimeline } from '../../../types/funnel';
 
 interface StepOneProps {
@@ -77,33 +76,10 @@ const chevron = (
 );
 
 export function StepOne({ data, onChange, onNext }: StepOneProps) {
-  const { zipCode, loanType, modelYear, vehicleMake, vehicleModel, financingTimeline } = data;
-  const [locating, setLocating] = useState(false);
-  const [locError, setLocError] = useState('');
+  const { loanType, modelYear, vehicleMake, vehicleModel, financingTimeline } = data;
   const models = vehicleMake ? (CAR_DATA[vehicleMake] ?? []) : [];
 
-  const handleUseMyLocation = () => {
-    if (!navigator.geolocation) { setLocError('Geolocation not supported.'); return; }
-    setLocating(true);
-    setLocError('');
-    navigator.geolocation.getCurrentPosition(
-      async pos => {
-        try {
-          const res = await fetch(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&localityLanguage=en`
-          );
-          const json = await res.json() as { postcode?: string };
-          if (json.postcode) onChange({ zipCode: json.postcode.slice(0, 5) });
-          else setLocError('Could not determine ZIP. Please type it manually.');
-        } catch { setLocError('Could not determine ZIP. Please type it manually.'); }
-        finally { setLocating(false); }
-      },
-      () => { setLocating(false); setLocError('Location denied. Please type your ZIP manually.'); }
-    );
-  };
-
   const canContinue =
-    zipCode.length === 5 &&
     loanType !== null &&
     modelYear !== null &&
     vehicleMake !== '' &&
@@ -253,36 +229,6 @@ export function StepOne({ data, onChange, onNext }: StepOneProps) {
             );
           })}
         </div>
-      </div>
-
-      {/* Q4: ZIP code */}
-      <div className="border-t-2 border-gray-100 pt-6 pb-3">
-        <div className="flex items-baseline gap-2 mb-3">
-          <QLabel n={4} />
-          <h2 className="text-base font-black text-gray-900">What is your ZIP code?</h2>
-        </div>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            inputMode="numeric"
-            maxLength={5}
-            placeholder="e.g. 77001"
-            value={zipCode}
-            onChange={e => onChange({ zipCode: e.target.value.replace(/\D/g, '').slice(0, 5) })}
-            className="flex-1 px-3 py-2.5 border-2 border-gray-200 rounded-xl text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#233B86] transition-all"
-          />
-          <motion.button
-            onClick={handleUseMyLocation}
-            disabled={locating}
-            whileHover={!locating ? { scale: 1.02 } : {}}
-            whileTap={!locating ? { scale: 0.97 } : {}}
-            className="flex items-center gap-1.5 px-3 py-2.5 bg-[#EEF1FB] text-[#233B86] font-semibold text-xs rounded-xl hover:bg-[#dce2f5] transition-colors disabled:opacity-60 whitespace-nowrap"
-          >
-            <MapPin size={13} />
-            {locating ? 'Locating…' : 'Use my ZIP'}
-          </motion.button>
-        </div>
-        {locError && <p className="text-xs text-red-500 mt-1.5">{locError}</p>}
       </div>
 
       {/* Continue */}

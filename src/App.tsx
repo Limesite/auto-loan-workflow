@@ -6,6 +6,7 @@ import { StepOne } from './components/funnel/steps/StepOne';
 import { StepTwo } from './components/funnel/steps/StepTwo';
 import { StepThree } from './components/funnel/steps/StepThree';
 import { StepFour } from './components/funnel/steps/StepFour';
+import { StepFive } from './components/funnel/steps/StepFive';
 import { LeadCapture } from './components/funnel/LeadCapture';
 import { LoadingScreen } from './components/funnel/LoadingScreen';
 import { RatesDisplay } from './components/funnel/RatesDisplay';
@@ -34,6 +35,8 @@ function FunnelModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
         return <StepThree data={data} onChange={updateData} onNext={goNext} />;
       case 'step4':
         return <StepFour data={data} onChange={updateData} onNext={goNext} />;
+      case 'step5':
+        return <StepFive data={data} onChange={updateData} onNext={goNext} />;
       case 'lead-capture':
         return <LeadCapture data={data} onChange={updateData} onSubmit={goNext} />;
       case 'loading':

@@ -63,6 +63,7 @@ export type FunnelStep =
   | 'step2'
   | 'step3'
   | 'step4'
+  | 'step5'
   | 'lead-capture'
   | 'loading'
   | 'rates';
@@ -72,9 +73,10 @@ export const STEP_ORDER: FunnelStep[] = [
   'step2',
   'step3',
   'step4',
+  'step5',
   'loading',
   'lead-capture',
   'rates',
 ];
 
-export const QUESTION_STEPS: FunnelStep[] = ['step1', 'step2', 'step3', 'step4'];
+export const QUESTION_STEPS: FunnelStep[] = ['step1', 'step2', 'step3', 'step4', 'step5'];

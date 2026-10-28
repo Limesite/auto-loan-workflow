@@ -26,6 +26,7 @@ const STEP_LABELS: Partial<Record<FunnelStep, string>> = {
   'step2':        'Car Details',
   'step3':        'Loan Details',
   'step4':        'Financial Profile',
+  'step5':        'Almost There',
   'lead-capture': 'Almost There',
 };
 

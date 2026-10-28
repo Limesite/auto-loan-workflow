@@ -92,9 +92,28 @@ export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
 
       {/* Q1: Which vehicle are you financing? */}
       <div className="pb-6">
-        <div className="flex items-baseline gap-2 mb-3">
-          <QLabel n={qNum++} />
-          <h2 className="text-base font-black text-gray-900">Which vehicle are you financing?</h2>
+        <div className="flex items-center justify-between gap-3 mb-3">
+          <div className="flex items-baseline gap-2">
+            <QLabel n={qNum++} />
+            <h2 className="text-base font-black text-gray-900">Which vehicle are you financing?</h2>
+          </div>
+          <button
+            onClick={() => onChange(
+              vehicleUnknown
+                ? { vehicleUnknown: false }
+                : { vehicleUnknown: true, modelYear: null, vehicleMake: '', vehicleModel: '' }
+            )}
+            className="flex items-center gap-2 flex-shrink-0"
+          >
+            <span className="text-xs font-semibold text-gray-400 whitespace-nowrap">I don't know</span>
+            <div className={`relative w-10 h-[22px] rounded-full transition-colors duration-200 ${vehicleUnknown ? 'bg-[#EA2523]' : 'bg-gray-200'}`}>
+              <motion.div
+                className="absolute top-[2px] w-[18px] h-[18px] bg-white rounded-full shadow"
+                animate={{ left: vehicleUnknown ? '20px' : '2px' }}
+                transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+              />
+            </div>
+          </button>
         </div>
 
         <AnimatePresence initial={false}>
@@ -161,32 +180,6 @@ export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
           )}
         </AnimatePresence>
 
-        {/* I don't know option */}
-        <motion.button
-          onClick={() => onChange(
-            vehicleUnknown
-              ? { vehicleUnknown: false }
-              : { vehicleUnknown: true, modelYear: null, vehicleMake: '', vehicleModel: '' }
-          )}
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.97 }}
-          className={`relative w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all ${
-            vehicleUnknown
-              ? 'border-[#EA2523] bg-[#EA2523]/5'
-              : 'border-gray-200 bg-white hover:border-gray-300'
-          }`}
-        >
-          {vehicleUnknown && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="absolute top-3 right-3 w-4 h-4 bg-[#EA2523] rounded-full flex items-center justify-center"
-            >
-              <Check size={9} className="text-white" strokeWidth={3} />
-            </motion.div>
-          )}
-          <span className="text-sm font-bold text-gray-900">I don't know yet</span>
-        </motion.button>
       </div>
 
       {/* Q2: Mileage slider (used + refinance only) */}

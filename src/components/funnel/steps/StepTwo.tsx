@@ -105,7 +105,7 @@ export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
             )}
             className="flex items-center gap-2 flex-shrink-0"
           >
-            <span className="text-xs font-semibold text-gray-400 whitespace-nowrap">I don't know</span>
+            <span className="text-xs font-semibold text-gray-900 whitespace-nowrap">I don't know</span>
             <div className={`relative w-10 h-[22px] rounded-full transition-colors duration-200 ${vehicleUnknown ? 'bg-[#EA2523]' : 'bg-gray-200'}`}>
               <motion.div
                 className="absolute top-[2px] w-[18px] h-[18px] bg-white rounded-full shadow"

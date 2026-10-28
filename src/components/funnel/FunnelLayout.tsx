@@ -29,13 +29,6 @@ const STEP_LABELS: Partial<Record<FunnelStep, string>> = {
   'lead-capture': 'Almost There',
 };
 
-const REVIEW_SOURCES = [
-  { label: 'Google',         score: '4.9', reviews: '2,400+ reviews', logo: '/google-logo.png'     },
-  { label: 'Zillow',         score: '5.0', reviews: '180+ reviews',   logo: '/zillow-logo.png'     },
-  { label: 'Yelp',           score: '4.7', reviews: '90+ reviews',    logo: '/yelp-logo.png'       },
-  { label: 'Experience.com', score: '4.8', reviews: '500+ reviews',   logo: '/experience-logo.png' },
-];
-
 export function FunnelLayout({
   children,
   currentStep,
@@ -175,43 +168,6 @@ export function FunnelLayout({
           </AnimatePresence>
         </div>
 
-        {/* TRUST FOOTER */}
-        {isQuestionStep && (
-          <div className="flex-shrink-0 bg-gray-50 border-t border-gray-100 px-5 py-4">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-4 sm:gap-7">
-                {REVIEW_SOURCES.map((r, i) => (
-                  <div key={r.label} className={`flex flex-col gap-0.5 ${i >= 2 ? 'hidden sm:flex' : ''}`}>
-                    <div className="flex items-center gap-1.5">
-                      <img src={r.logo} alt={r.label} className="h-4 sm:h-6 w-auto object-contain" />
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" className="sm:hidden">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                      </svg>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="#F59E0B" className="hidden sm:block">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                      </svg>
-                      <span className="text-xs sm:text-base font-bold text-gray-800">{r.score}</span>
-                    </div>
-                    <span className="text-[10px] sm:text-sm" style={{ color: '#757575' }}>{r.reviews}</span>
-                  </div>
-                ))}
-              </div>
-
-              <a
-                href="https://www.bankingbridge.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0"
-              >
-                <img
-                  src="/bankingbridge-badge.png"
-                  alt="Powered by BankingBridge"
-                  className="h-11 sm:h-12 w-auto object-contain"
-                />
-              </a>
-            </div>
-          </div>
-        )}
       </motion.div>
     </div>
   );

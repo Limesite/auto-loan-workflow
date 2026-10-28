@@ -16,6 +16,7 @@ export interface FunnelData {
   vehicleModel: string;
 
   // Step 2: Car Details
+  vehicleUnknown: boolean;
   vehicleType: VehicleType | null;
   modelYear: number | null;
   mileageRange: number | null;

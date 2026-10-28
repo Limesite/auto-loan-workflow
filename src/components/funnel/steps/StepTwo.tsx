@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import type { FunnelData, VehicleType, PurchaseLocation } from '../../../types/funnel';
+import type { FunnelData, PurchaseLocation } from '../../../types/funnel';
 
 interface StepTwoProps {
   data: FunnelData;
@@ -8,13 +8,43 @@ interface StepTwoProps {
   onNext: () => void;
 }
 
-const VEHICLE_TYPES: { value: VehicleType; label: string; img?: string }[] = [
-  { value: 'car-sedan',    label: 'Car or sedan',     img: '/icons/car-sedan.png'     },
-  { value: 'suv-crossover', label: 'SUV or crossover', img: '/icons/suv-crossover.png' },
-  { value: 'truck',        label: 'Truck',             img: '/icons/truck.png'         },
-  { value: 'van-minivan',  label: 'Van or minivan',    img: '/icons/van-minivan.png'   },
-  { value: 'other',        label: 'Other'                                              },
-];
+const CAR_DATA: Record<string, string[]> = {
+  'Acura':         ['ILX', 'MDX', 'RDX', 'TLX', 'ZDX'],
+  'Alfa Romeo':    ['Giulia', 'Stelvio', 'Tonale'],
+  'Audi':          ['A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'e-tron GT', 'Q3', 'Q5', 'Q7', 'Q8', 'TT'],
+  'BMW':           ['2 Series', '3 Series', '4 Series', '5 Series', '7 Series', 'X1', 'X3', 'X5', 'X7', 'i4', 'iX'],
+  'Buick':         ['Enclave', 'Encore', 'Encore GX', 'Envision'],
+  'Cadillac':      ['CT4', 'CT5', 'Escalade', 'XT4', 'XT5', 'XT6'],
+  'Chevrolet':     ['Blazer', 'Camaro', 'Colorado', 'Corvette', 'Equinox', 'Malibu', 'Silverado 1500', 'Silverado 2500HD', 'Suburban', 'Tahoe', 'Trailblazer', 'Traverse', 'Trax'],
+  'Chrysler':      ['300', 'Pacifica', 'Voyager'],
+  'Dodge':         ['Challenger', 'Charger', 'Durango', 'Hornet'],
+  'Ford':          ['Bronco', 'Bronco Sport', 'Edge', 'Escape', 'Explorer', 'F-150', 'F-250', 'F-350', 'Maverick', 'Mustang', 'Mustang Mach-E', 'Ranger', 'Transit'],
+  'Genesis':       ['G70', 'G80', 'G90', 'GV70', 'GV80'],
+  'GMC':           ['Acadia', 'Canyon', 'Sierra 1500', 'Sierra 2500HD', 'Terrain', 'Yukon'],
+  'Honda':         ['Accord', 'Civic', 'CR-V', 'HR-V', 'Odyssey', 'Passport', 'Pilot', 'Ridgeline'],
+  'Hyundai':       ['Elantra', 'Ioniq 5', 'Ioniq 6', 'Kona', 'Palisade', 'Santa Cruz', 'Santa Fe', 'Sonata', 'Tucson', 'Venue'],
+  'Infiniti':      ['Q50', 'Q60', 'QX50', 'QX55', 'QX60', 'QX80'],
+  'Jeep':          ['Cherokee', 'Compass', 'Gladiator', 'Grand Cherokee', 'Renegade', 'Wrangler'],
+  'Kia':           ['Carnival', 'EV6', 'Forte', 'K5', 'Niro', 'Seltos', 'Sorento', 'Soul', 'Sportage', 'Stinger', 'Telluride'],
+  'Land Rover':    ['Defender', 'Discovery', 'Discovery Sport', 'Range Rover', 'Range Rover Evoque', 'Range Rover Sport'],
+  'Lexus':         ['ES', 'GX', 'IS', 'LC', 'LS', 'LX', 'NX', 'RX', 'TX', 'UX'],
+  'Lincoln':       ['Aviator', 'Corsair', 'Nautilus', 'Navigator'],
+  'Mazda':         ['CX-30', 'CX-5', 'CX-50', 'CX-90', 'Mazda3', 'MX-5 Miata'],
+  'Mercedes-Benz': ['A-Class', 'C-Class', 'E-Class', 'GLA', 'GLC', 'GLE', 'GLS', 'S-Class'],
+  'Mitsubishi':    ['Eclipse Cross', 'Outlander', 'Outlander Sport'],
+  'Nissan':        ['Altima', 'Armada', 'Frontier', 'Kicks', 'Leaf', 'Maxima', 'Murano', 'Pathfinder', 'Rogue', 'Sentra', 'Titan', 'Versa'],
+  'Ram':           ['1500', '2500', '3500', 'ProMaster'],
+  'Subaru':        ['Ascent', 'BRZ', 'Crosstrek', 'Forester', 'Impreza', 'Legacy', 'Outback', 'Solterra', 'WRX'],
+  'Tesla':         ['Model 3', 'Model S', 'Model X', 'Model Y'],
+  'Toyota':        ['4Runner', 'Camry', 'Corolla', 'Crown', 'GR86', 'Highlander', 'RAV4', 'Sequoia', 'Sienna', 'Supra', 'Tacoma', 'Tundra', 'Venza'],
+  'Volkswagen':    ['Atlas', 'Golf', 'ID.4', 'Jetta', 'Taos', 'Tiguan'],
+  'Volvo':         ['S60', 'S90', 'XC40', 'XC60', 'XC90'],
+};
+
+const MAKES = Object.keys(CAR_DATA).sort();
+
+const CURRENT_YEAR = new Date().getFullYear();
+const MODEL_YEARS = Array.from({ length: CURRENT_YEAR - 1989 }, (_, i) => CURRENT_YEAR + 1 - i);
 
 const PURCHASE_LOCATIONS: { value: PurchaseLocation; label: string }[] = [
   { value: 'dealership',    label: 'Dealership'    },
@@ -30,58 +60,133 @@ function QLabel({ n }: { n: number }) {
   );
 }
 
+const chevron = (
+  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth={2}>
+      <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  </div>
+);
+
 export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
-  const { vehicleType, mileageRange, purchaseLocation, loanType } = data;
+  const { vehicleUnknown, modelYear, vehicleMake, vehicleModel, mileageRange, purchaseLocation, loanType } = data;
+  const models = vehicleMake ? (CAR_DATA[vehicleMake] ?? []) : [];
 
   const showMileage     = loanType === 'used-purchase' || loanType === 'refinance';
   const showPurchaseLoc = loanType === 'new-purchase'  || loanType === 'used-purchase';
 
   const canContinue =
-    vehicleType !== null &&
+    (vehicleUnknown || (modelYear !== null && vehicleMake !== '' && vehicleModel !== '')) &&
     (!showMileage || mileageRange !== null) &&
     (!showPurchaseLoc || purchaseLocation !== null);
+
+  const selectCls = (filled: boolean) =>
+    `w-full px-3 py-2.5 border-2 rounded-xl text-sm font-medium focus:outline-none focus:border-[#233B86] transition-all appearance-none bg-white cursor-pointer ${
+      filled ? 'text-gray-800 border-gray-200' : 'text-gray-400 border-gray-200'
+    }`;
 
   let qNum = 1;
 
   return (
     <div className="px-5 py-5">
 
-      {/* Q1: Vehicle type */}
+      {/* Q1: Which vehicle are you financing? */}
       <div className="pb-6">
         <div className="flex items-baseline gap-2 mb-3">
           <QLabel n={qNum++} />
-          <h2 className="text-base font-black text-gray-900">What type of vehicle is it?</h2>
+          <h2 className="text-base font-black text-gray-900">Which vehicle are you financing?</h2>
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          {VEHICLE_TYPES.map(vt => {
-            const selected = vehicleType === vt.value;
-            return (
-              <motion.button
-                key={vt.value}
-                onClick={() => onChange({ vehicleType: vt.value })}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className={`relative flex items-center gap-3 px-3 py-2.5 rounded-xl border-2 transition-all ${
-                  selected
-                    ? 'border-[#EA2523] bg-[#EA2523]/5 shadow-md'
-                    : 'border-gray-200 bg-white hover:border-gray-300'
-                } ${vt.value === 'other' ? 'col-span-2' : ''}`}
-              >
-                {selected && (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute top-2 right-2 w-4 h-4 bg-[#EA2523] rounded-full flex items-center justify-center"
+
+        <AnimatePresence initial={false}>
+          {!vehicleUnknown && (
+            <motion.div
+              key="vehicle-fields"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden"
+            >
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div className="relative">
+                  <select
+                    value={modelYear ?? ''}
+                    onChange={e => onChange({ modelYear: Number(e.target.value) || null })}
+                    className={selectCls(modelYear !== null)}
                   >
-                    <Check size={9} className="text-white" strokeWidth={3} />
-                  </motion.div>
-                )}
-                {vt.img && <img src={vt.img} alt={vt.label} className="w-10 h-10 object-contain flex-shrink-0" />}
-                <span className="text-sm font-bold text-gray-800 text-left">{vt.label}</span>
-              </motion.button>
-            );
-          })}
-        </div>
+                    <option value="">Year (e.g., 2023)</option>
+                    {MODEL_YEARS.map(y => (
+                      <option key={y} value={y}>{y}</option>
+                    ))}
+                  </select>
+                  {chevron}
+                </div>
+
+                <div className="relative">
+                  <select
+                    value={vehicleMake}
+                    onChange={e => onChange({ vehicleMake: e.target.value, vehicleModel: '' })}
+                    className={selectCls(vehicleMake !== '')}
+                  >
+                    <option value="">Make (e.g., Toyota)</option>
+                    {MAKES.map(m => (
+                      <option key={m} value={m}>{m}</option>
+                    ))}
+                  </select>
+                  {chevron}
+                </div>
+              </div>
+
+              <div className="relative mb-3">
+                <select
+                  value={vehicleModel}
+                  onChange={e => onChange({ vehicleModel: e.target.value })}
+                  disabled={vehicleMake === ''}
+                  className={`w-full px-3 py-2.5 border-2 rounded-xl text-sm font-medium focus:outline-none focus:border-[#233B86] transition-all appearance-none bg-white ${
+                    vehicleMake === ''
+                      ? 'text-gray-400 border-gray-200 cursor-not-allowed opacity-50'
+                      : vehicleModel
+                        ? 'text-gray-800 border-gray-200 cursor-pointer'
+                        : 'text-gray-400 border-gray-200 cursor-pointer'
+                  }`}
+                >
+                  <option value="">Model (e.g., Camry)</option>
+                  {models.map(m => (
+                    <option key={m} value={m}>{m}</option>
+                  ))}
+                </select>
+                {chevron}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* I don't know option */}
+        <motion.button
+          onClick={() => onChange(
+            vehicleUnknown
+              ? { vehicleUnknown: false }
+              : { vehicleUnknown: true, modelYear: null, vehicleMake: '', vehicleModel: '' }
+          )}
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.97 }}
+          className={`relative w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all ${
+            vehicleUnknown
+              ? 'border-[#EA2523] bg-[#EA2523]/5'
+              : 'border-gray-200 bg-white hover:border-gray-300'
+          }`}
+        >
+          {vehicleUnknown && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="absolute top-3 right-3 w-4 h-4 bg-[#EA2523] rounded-full flex items-center justify-center"
+            >
+              <Check size={9} className="text-white" strokeWidth={3} />
+            </motion.div>
+          )}
+          <span className="text-sm font-bold text-gray-900">I don't know yet</span>
+        </motion.button>
       </div>
 
       {/* Q2: Mileage slider (used + refinance only) */}
@@ -114,7 +219,7 @@ export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
         </div>
       )}
 
-      {/* Q4: Where buying (purchase only) */}
+      {/* Q3: Where buying (purchase only) */}
       {showPurchaseLoc && (
         <div className="border-t-2 border-gray-100 pt-6 pb-3">
           <div className="flex items-baseline gap-2 mb-3">

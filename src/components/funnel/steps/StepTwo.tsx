@@ -82,7 +82,7 @@ export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
 
   const selectCls = (filled: boolean) =>
     `w-full px-3 py-2.5 border-2 rounded-xl text-sm font-medium focus:outline-none focus:border-[#233B86] transition-all appearance-none bg-white cursor-pointer ${
-      filled ? 'text-gray-800 border-gray-200' : 'text-gray-400 border-gray-200'
+      filled ? 'text-gray-900 border-gray-200' : 'text-gray-700 border-gray-200'
     }`;
 
   let qNum = 1;
@@ -103,10 +103,10 @@ export function StepTwo({ data, onChange, onNext }: StepTwoProps) {
                 ? { vehicleUnknown: false }
                 : { vehicleUnknown: true, modelYear: null, vehicleMake: '', vehicleModel: '' }
             )}
-            className="flex items-center gap-2 flex-shrink-0"
+            className={`flex items-center gap-2 flex-shrink-0 px-2.5 py-1.5 rounded-xl border transition-colors duration-200 ${vehicleUnknown ? 'bg-[#EA2523]/8 border-[#EA2523]/30' : 'bg-gray-100 border-gray-200 hover:bg-gray-150'}`}
           >
-            <span className="text-xs font-semibold text-gray-900 whitespace-nowrap">I don't know</span>
-            <div className={`relative w-10 h-[22px] rounded-full transition-colors duration-200 ${vehicleUnknown ? 'bg-[#EA2523]' : 'bg-gray-200'}`}>
+            <span className="text-xs font-bold text-gray-900 whitespace-nowrap">I don't know</span>
+            <div className={`relative w-10 h-[22px] rounded-full transition-colors duration-200 ${vehicleUnknown ? 'bg-[#EA2523]' : 'bg-gray-300'}`}>
               <motion.div
                 className="absolute top-[2px] w-[18px] h-[18px] bg-white rounded-full shadow"
                 animate={{ left: vehicleUnknown ? '20px' : '2px' }}
